@@ -30,6 +30,8 @@ if passwords.root_password && !passwords.root_password.empty?
     action :nothing
     subscribes :run, resources("template[/etc/mysql/grants.sql]"), :immediately
     sensitive true
+    retries 2
+    retry_delay 2
   end
 else
   # Simpler path...  just try running the grants command
@@ -38,5 +40,7 @@ else
     action :nothing
     subscribes :run, resources("template[/etc/mysql/grants.sql]"), :immediately
     sensitive true
+    retries 2
+    retry_delay 2
   end
 end
